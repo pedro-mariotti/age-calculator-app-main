@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput } from "./components/textInput.jsx";
+import TextInput from "./components/textInput.jsx";
 import buttonArrow from "./assets/images/icon-arrow.svg";
 import "./App.css";
 
@@ -26,12 +26,21 @@ function App() {
       year
     );
     console.log("Data atual:", { currDay, currMonth, currYear });
+    var intDay = parseInt(day);
+    var intYear = parseInt(year);
+    var intMonth = parseInt(month);
+    var tempAgeYear = currYear - intYear;
 
-    var tempAgeYear = currYear - parseInt(year);
-    var tempAgeDay = currDay - parseInt(day);
-    var tempAgeMonth = currMonth - parseInt(month);
-
-    if (tempAgeYear > 0) {
+    if (
+      tempAgeYear > 0 &&
+      intDay > 0 &&
+      intMonth > 0 &&
+      intYear > 0 &&
+      intDay <= 31 &&
+      intMonth <= 12
+    ) {
+      var tempAgeDay = currDay - intDay;
+      var tempAgeMonth = currMonth - intMonth;
       if (tempAgeDay < 0) {
         tempAgeMonth--;
         tempAgeDay += 31;
@@ -44,6 +53,7 @@ function App() {
       tempAgeDay = "--";
       tempAgeMonth = "--";
       tempAgeYear = "--";
+      alert("Please enter a valid date!");
     }
     setAgeDay(tempAgeDay);
     setAgeMonth(tempAgeMonth);
@@ -57,31 +67,13 @@ function App() {
           <form onSubmit={calculateDate}>
             <div className="text-inputs-container">
               <label>
-                D A Y{" "}
-                <input
-                  type="text"
-                  required
-                  id="day-input"
-                  onChange={(e) => setDay(e.target.value)}
-                />
+                D A Y <TextInput setDateHook={setDay} />
               </label>
               <label>
-                M O N T H{" "}
-                <input
-                  type="text"
-                  required
-                  id="month-input"
-                  onChange={(e) => setMonth(e.target.value)}
-                />
+                M O N T H <TextInput setDateHook={setMonth} />
               </label>
               <label>
-                Y E A R{" "}
-                <input
-                  type="text"
-                  required
-                  id="year-input"
-                  onChange={(e) => setYear(e.target.value)}
-                />
+                Y E A R <TextInput setDateHook={setYear} />
               </label>
             </div>
             <div className="button-line-div">
@@ -93,10 +85,10 @@ function App() {
           </form>
           <div className="calculator-output">
             <p>
-              <span className="highlighted-number">{AgeYear}</span> years
+              <span className="highlighted-number">{AgeYear} </span> years
             </p>
             <p>
-              <span className="highlighted-number">{AgeMonth}</span> months
+              <span className="highlighted-number">{AgeMonth} </span> months
             </p>
             <p>
               <span className="highlighted-number">{AgeDay}</span> days
