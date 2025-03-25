@@ -1,6 +1,8 @@
 import { useState } from "react";
-import TextInput from "./components/textInput.jsx";
-import buttonArrow from "./assets/images/icon-arrow.svg";
+import MainForm from "./components/mainForm.jsx";
+import CalculatorOutput from "./components/calculatorOutput.jsx";
+import Footer from "./components/footer.jsx";
+
 import "./App.css";
 
 function App() {
@@ -64,44 +66,10 @@ function App() {
     <>
       <main>
         <section>
-          <form onSubmit={calculateDate}>
-            <div className="text-inputs-container">
-              <label>
-                D A Y <TextInput setDateHook={setDay} />
-              </label>
-              <label>
-                M O N T H <TextInput setDateHook={setMonth} />
-              </label>
-              <label>
-                Y E A R <TextInput setDateHook={setYear} />
-              </label>
-            </div>
-            <div className="button-line-div">
-              <div className="line"></div>
-              <button type="submit" value="">
-                <img src={buttonArrow} alt="button arrow down" />
-              </button>
-            </div>
-          </form>
-          <div className="calculator-output">
-            <p>
-              <span className="highlighted-number">{AgeYear} </span> years
-            </p>
-            <p>
-              <span className="highlighted-number">{AgeMonth} </span> months
-            </p>
-            <p>
-              <span className="highlighted-number">{AgeDay}</span> days
-            </p>
-          </div>
+          <MainForm onSubmit={calculateDate} setDayHook={setDay} setMonthHook={setMonth} setYearHook={setYear} />
+          <CalculatorOutput ageDayResult={AgeDay} ageMonthResult={AgeMonth} ageYearResult={AgeYear}/>
         </section>
-        <footer className="attribution">
-          Challenge by{" "}
-          <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
-            Frontend Mentor
-          </a>
-          . Coded by <a href="#">Pedro Mariotti</a>.
-        </footer>
+      <Footer/>
       </main>
     </>
   );
